@@ -1,0 +1,55 @@
+{% extends 'base/nav_clerk.html' %} <!-- Nav Bar for Clerk -->
+
+{% block content %}
+    <!-- ********** NAVAGATION BAR ********** -->
+    <nav class="sticky-top" style="background-color: #2d2d86;padding-top:20px;font:white;">
+        <div class="container-fluid">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#" style="color:white;">
+                    {% load static %} <center><img src="{% static "images/oracle-logo.png" %}" alt="usage"/></center>
+                </a>
+                <button type="button" onclick="location.href={% url 'logout' %}" class="btn btn-danger" style="height:40px;width:100px;float:right;">Log Out</button>
+            
+                <ul class="nav nav-tabs justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'homepage' %}" style="margin-right:50px;" >HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'add-account' %}" style="margin-right:50px;color:white;" >Account Form</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'usage' %}" style="margin-right:50px;color:white;" >Usage Form</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'suspension' %}" style="color:white;" >Suspension Form</a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'rates' %}" style="margin-left:50px;color:white;">Rates Form</a>
+                    </li>
+                </ul>
+            </div>
+          </div>
+    </nav>
+    
+    <!-- ********** SEARCH SECTION ********** -->
+    <section class="search-section" style="background-color: #ffffff;padding:30px:width:800px"> 
+        <div class="search-container">
+            <br/>
+            <div class="search-bar">
+                <h1><center>ORACLE BILLING SYSTEM</center></h1>
+                <br/>
+                <br/>
+                <h2><center>Welcome, {{ user.first_name }} {{ user.last_name }}</center></h2>
+            </div>
+            <br/>
+            
+            <div class="panel-heading">
+                <h3><center>Today is </center></h3>
+                <h2><center><b>{{date}}</b></center></h2>
+            </div>
+        </div>
+        {% load static %} <center><img src="{% static "images/wallpaper.jpg" %}" alt="usage" /></center> 
+    </section>
+
+{% endblock %}

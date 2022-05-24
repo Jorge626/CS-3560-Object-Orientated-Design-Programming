@@ -1,0 +1,107 @@
+{% extends 'base/nav_clerk.html' %} <!-- Nav Bar for Clerk -->
+
+{% block content %}
+    <!-- ********** NAVAGATION BAR ********** -->
+    <nav class="sticky-top" style="background-color: #2d2d86;padding-top:20px;font:white;">
+        <div class="container-fluid">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#" style="color:white;">
+                    {% load static %} <center><img src="{% static "images/oracle-logo.png" %}" alt="usage"/></center>
+                </a>
+                <button type="button" onclick="location.href={% url 'logout' %}" class="btn btn-danger" style="height:40px;width:100px;float:right;">Log Out</button>
+            
+                <ul class="nav nav-tabs justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'homepage' %}" style="margin-right:50px;color:white;" >HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'add-account' %}" style="margin-right:50px;color:white;" >Account Form</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'usage' %}" style="margin-right:50px;color:white;" >Usage Form</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'suspension' %}" style="margin-right:50px;" >Suspension Form</a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'rates' %}" style="margin-right:50px;color:white;">Rates Form</a>
+                    </li>
+                </ul>
+           
+          </div>
+    </nav>
+    <!-- ********** SEARCH SECTION ********** -->
+    <section class="search-section" style="background-color: #ffffff;padding:30px;box-shadow: 1px 3px 10px 6px #e4e2e2;">
+            
+        <div class="search-container">
+            <div>
+                <h2><center>SUSPEND AN ACCOUNT</center></h2>
+            </div>
+            <br>
+            <div class="search-bar">
+                <center>
+                <form class="form" action="#" method="get">
+                    <div class="form_field">
+                        <label for="formInput#search">Search for Account</label>
+                        <input class="input input--text" id="formInput#search" type="text" name="customer" placeholder="Search by Account ID" />        
+                        <input class="btn btn-secondary btn-sm" type="submit" value="Search" />
+                    </div>
+                    
+                </form>
+                </center>
+            </div>
+        </div>
+        
+    </section>
+    <br>
+    <br>
+    <!-- ********** SUSPENSION FORM ********** -->
+    <div class="container" style="background-color: #ffffff;width: 70%;padding:50px;border-radius: 0px;border:1px solid #CCC;box-shadow: 1px 3px 10px 6px #e4e2e2;">
+        <div class="panel-heading">
+            <h1><center>Suspension Form</center></h1>
+            {% load static %} <center><img src="{% static "images/suspend2.png" %}" alt="usage" /></center>
+        </div>
+
+
+        {% if submitted %}
+        <h3 style="color: #28aa28;"><center>The Suspension has been Recorded Successfully!</center></h3>
+
+        
+        {% elif search %}
+
+            <!-- ********** Need to GET customer info from Customer class ********** -->
+            <h4 style="margin-top:30px;">Customer Info</h4>
+            <hr style="border:0;border-top:1px solid #CCC;">
+
+            <h6>Customer Full Name: {% for i in customer_info %}{{i.fullName}}{% endfor %}</h6>
+            <h6>Customer Phone Number: {% for i in customer_info %}{{i.phoneNumber}}{% endfor %}</h6>
+            <h6>Email Address: {% for i in customer_info %}{{i.email}}{% endfor %}</h6>
+            <h6>Customer Customer ID #: {% for i in customer_info %}{{i.customerID}}{% endfor %}</h6>
+
+            <!-- ********** POST to Account class ********** -->
+            <form action="" method=POST class="row g-3" >
+            {% csrf_token %}
+
+                <h4 style="margin-top:30px;">Customer Suspension</h4>
+                <hr style="border:0;border-top:1px solid #CCC;">
+
+                <div class="col-md-12">
+
+                {{ form.as_p }}
+
+                </div>
+
+                <input type="submit" value="Suspend Account" class="d-grid gap-2 col-6 mx-auto btn btn-primary" type="button" data-bs-toggle="offcanvas" 
+                data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" style="background-color:#6666cc;border-color:#6666cc;">
+
+            </form>
+        {% else %}
+            <h3><center>Search for a Account Id to display the form.</center></h3>
+
+        {% endif %}
+    </div>
+    <br/>
+    <br/>
+
+{% endblock %}
